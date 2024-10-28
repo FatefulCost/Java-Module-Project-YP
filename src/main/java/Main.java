@@ -11,21 +11,26 @@ public class Main {
         ArrayList<Car> carList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
-        for(int i = 1; i<=3; i++){
+        for(int i = 1; i<=3; i++) {
             System.out.println("Введите название машины № " + i);
             String name = scanner.next();
-            System.out.println("Введите скорость машины № " + i);
+            int speed;
 
-            int speed = scanner.nextInt();
-            if(speed<0 || speed>250){
-                while (speed<0 || speed>250){
-                    System.out.println("Вы указали неправильную скорость");
-                    System.out.println("Введите скорость машины № " + i);
+            while (true) {
+                System.out.println("Введите скорость машины № " + i);
+                if (scanner.hasNextInt()) {
                     speed = scanner.nextInt();
+                    if (speed > 0 && speed <= 250) {
+                        break;
+                    } else {
+                        System.out.println("Вы указали неправильную скорость. Скорость должна быть в диапазоне от 1 до 250.");
+                    }
+                } else {
+                    System.out.println("Вы ввели некорректное значение. Пожалуйста, введите целое число.");
+                    scanner.next();
                 }
             }
-
-            carList.add(new Car(name,speed));
+            carList.add(new Car(name, speed));
         }
 
         Race race = new Race();
